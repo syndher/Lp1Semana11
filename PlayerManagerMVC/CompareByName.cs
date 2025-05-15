@@ -33,7 +33,7 @@ namespace PlayerManagerMVC
         /// Creates a new instance of this class.
         /// </summary>
         /// <param name="ord">
-        /// If true order alphatetically, otherwise sort in reverse
+        /// If true order alphabetically, otherwise sort in reverse
         /// alphabetical order.
         /// </param>
         public CompareByName(bool ord)

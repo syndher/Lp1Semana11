@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using PlayerManagerMVC.Model;
 
 namespace PlayerManagerMVC.View
 {
