@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using PlayerManagerMVC.View;
+using System.IO.Enumeration;
+using PlayerManagerMVC2.View;
 
 namespace PlayerManagerMVC2.Controller
 {
@@ -24,20 +25,18 @@ namespace PlayerManagerMVC2.Controller
         /// <summary>
         /// Creates a new instance of the player controller.
         /// </summary>
-        public PlayerController(PlayerView view)
+        public PlayerController(PlayerView view, string file)
         {
             // Initialize the view
             view = new PlayerView();
             // Initialize the player list
             compareByName = new CompareByName(true);
             compareByNameReverse = new CompareByName(false);
-
-            // Initialize the player list with two players using collection
-            // initialization syntax
-            playerList = new List<Player>() {
-                new Player("Best player ever", 100),
-                new Player("An even better player", 500)
-            };
+            playerList = LoadPlayerFile(file);
+        }
+        private List<Player> LoadPlayerFile(string file)
+        {
+            
         }
         public void Start()
         {

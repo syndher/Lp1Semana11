@@ -8,10 +8,11 @@ namespace PlayerManagerMVC2
     {
         private static void Main(string[] args)
         {
+            string file = args[0];
             // Create the view
             PlayerView view = new PlayerView();
             // Create the controller
-            PlayerController controller = new PlayerController(view);
+            PlayerController controller = new PlayerController(view, file);
             // Start the controller
             controller.Start();
         }
