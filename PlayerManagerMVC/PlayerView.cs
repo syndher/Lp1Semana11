@@ -1,38 +1,11 @@
 using System;
 using System.Collections.Generic;
+using PlayerManagerMVC.Model;
 
-namespace PlayerManagerMVC
+namespace PlayerManagerMVC.View
 {
     public class PlayerView
     {
-        public void AskForInput()
-        {
-            // Wait for user to press a key...
-            Console.Write("\nPress any key to continue...");
-            Console.ReadKey(true);
-            Console.WriteLine("\n");
-        }
-
-        public void AskForPlayer()
-        {
-            // Variables
-            string name;
-            int score;
-            Player newPlayer;
-
-            // Ask for player info
-            Console.WriteLine("\nInsert player");
-            Console.WriteLine("-------------\n");
-            Console.Write("Name: ");
-            name = Console.ReadLine();
-            Console.Write("Score: ");
-            score = Convert.ToInt32(Console.ReadLine());
-
-            // Create new player and add it to list
-            newPlayer = new Player(name, score);
-            Program.playerList.Add(newPlayer);
-        }
-
         public void ShowMenu()
         {
             Console.WriteLine("Menu");
@@ -45,15 +18,61 @@ namespace PlayerManagerMVC
             Console.Write("Your choice > ");
         }
 
-        public void UnknownOption()
+        public void DisplayPlayers(IEnumerable<Player> playersToList)
         {
-            Console.Error.WriteLine("\n>>> Unknown option! <<<\n");
+            Console.WriteLine("Players:");
+            Console.WriteLine("--------");
+
+            foreach (Player p in playersToList)
+            {
+                Console.WriteLine($"{p.Name} with a score of ({p.Score})");
+            }
+            Console.WriteLine();
         }
 
-        void IView.GoodByeMessage()
+        public (string name, int score) GetNewPlayerInfo()
+        {
+            Console.Write("Enter player name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter player score: ");
+            int score = int.Parse(Console.ReadLine());
+
+            return (name, score);
+        }
+
+        public int GetMinimumScore()
+        {
+            Console.Write("Enter minimum score: ");
+            return int.Parse(Console.ReadLine());
+        }
+
+        public PlayerOrder GetSortOrder()
+        {
+            Console.WriteLine("Sorting options:");
+            Console.WriteLine("1. By score");
+            Console.WriteLine("2. By name");
+            Console.WriteLine("3. By name (reverse)");
+            Console.Write("Your choice > ");
+            int choice = int.Parse(Console.ReadLine());
+
+            return Enum.Parse<PlayerOrder>(Console.ReadLine());
+        }
+
+        public void WaitForKey()
+        {
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+        }
+
+        public void DisplayGoodbye()
         {
             Console.WriteLine("Bye!");
         }
 
+        public void DisplayError(string message)
+        {
+            Console.WriteLine($"Error: {message}");
+        }
     }
 }
