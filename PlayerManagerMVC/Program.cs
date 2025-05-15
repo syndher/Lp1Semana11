@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PlayerManager4
+namespace PlayerManagerMVC
 {
     /// <summary>
     /// The player listing program.
@@ -16,6 +16,7 @@ namespace PlayerManager4
 
         // Comparer for comparing player by name (reverse alphabetical order)
         private readonly IComparer<Player> compareByNameReverse;
+        private readonly IView view;
 
         /// <summary>
         /// Program begins here.
@@ -58,7 +59,7 @@ namespace PlayerManager4
             do
             {
                 // Show menu and get user option
-                ShowMenu();
+                view.ShowMenu();
                 option = Console.ReadLine();
 
                 // Determine the option specified by the user and act on it
@@ -66,7 +67,7 @@ namespace PlayerManager4
                 {
                     case "1":
                         // Insert player
-                        InsertPlayer();
+                        IView.AskForPlayer();
                         break;
                     case "2":
                         ListPlayers(playerList);
@@ -78,59 +79,19 @@ namespace PlayerManager4
                         SortPlayerList();
                         break;
                     case "0":
-                        Console.WriteLine("Bye!");
+                        view.GoodByeMessage();
                         break;
                     default:
-                        Console.Error.WriteLine("\n>>> Unknown option! <<<\n");
+                        view.UnknownOption();
                         break;
                 }
 
-                // Wait for user to press a key...
-                Console.Write("\nPress any key to continue...");
-                Console.ReadKey(true);
-                Console.WriteLine("\n");
 
                 // Loop keeps going until players choses to quit (option 4)
             } while (option != "0");
         }
 
-        /// <summary>
-        /// Shows the main menu.
-        /// </summary>
-        private void ShowMenu()
-        {
-            Console.WriteLine("Menu");
-            Console.WriteLine("----\n");
-            Console.WriteLine("1. Insert player");
-            Console.WriteLine("2. List all players");
-            Console.WriteLine("3. List players with score greater than");
-            Console.WriteLine("4. Sort players");
-            Console.WriteLine("0. Quit\n");
-            Console.Write("Your choice > ");
-        }
 
-        /// <summary>
-        /// Inserts a new player in the player list.
-        /// </summary>
-        private void InsertPlayer()
-        {
-            // Variables
-            string name;
-            int score;
-            Player newPlayer;
-
-            // Ask for player info
-            Console.WriteLine("\nInsert player");
-            Console.WriteLine("-------------\n");
-            Console.Write("Name: ");
-            name = Console.ReadLine();
-            Console.Write("Score: ");
-            score = Convert.ToInt32(Console.ReadLine());
-
-            // Create new player and add it to list
-            newPlayer = new Player(name, score);
-            playerList.Add(newPlayer);
-        }
 
         /// <summary>
         /// Show all players in a list of players. This method can be static
