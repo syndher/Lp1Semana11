@@ -48,20 +48,22 @@ namespace PlayerManagerMVC2.View
 
         public PlayerOrder GetSortOrder()
         {
-            Console.WriteLine("Sorting options:");
-            Console.WriteLine("1. By score");
-            Console.WriteLine("2. By name");
-            Console.WriteLine("3. By name (reverse)");
-            Console.Write("Your choice > ");
-            int choice = int.Parse(Console.ReadLine());
+            Console.WriteLine("Player order");
+            Console.WriteLine("------------");
+            Console.WriteLine($"{(int)PlayerOrder.ByScore}. Order by score");
+            Console.WriteLine($"{(int)PlayerOrder.ByName}. Order by name");
+            Console.WriteLine($"{(int)PlayerOrder.ByNameReverse}. Order by name (reverse)");
+            Console.WriteLine("");
+            Console.Write("> ");
 
             return Enum.Parse<PlayerOrder>(Console.ReadLine());
         }
 
         public void WaitForKey()
         {
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            Console.Write("\nPress any key to continue...");
+            Console.ReadKey(true);
+            Console.WriteLine("\n");
         }
 
         public void DisplayGoodbye()

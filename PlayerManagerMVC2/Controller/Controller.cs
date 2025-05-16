@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO.Enumeration;
+using System.IO;
 using PlayerManagerMVC2.View;
 
 namespace PlayerManagerMVC2.Controller
@@ -32,11 +32,17 @@ namespace PlayerManagerMVC2.Controller
             // Initialize the player list
             compareByName = new CompareByName(true);
             compareByNameReverse = new CompareByName(false);
-            playerList = LoadPlayerFile(file);
-        }
-        private List<Player> LoadPlayerFile(string file)
-        {
-            
+            string[] nameList = File.ReadAllLines(file);
+            playerList = new List<Player>();
+
+            foreach (string player in nameList)
+            {
+                string[] playerInfo = player.Split(',');
+                
+                playerList.Add(new Player(playerInfo[0].Trim()
+                    ,Convert.ToInt32(playerInfo[1].Trim())));
+
+            }
         }
         public void Start()
         {
@@ -68,6 +74,7 @@ namespace PlayerManagerMVC2.Controller
                     default:
                         break;
                 }
+                view.WaitForKey();
             } while (option != "0");
         }
 
